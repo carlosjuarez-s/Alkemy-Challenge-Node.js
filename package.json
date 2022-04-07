@@ -1,0 +1,19 @@
+{
+  "name": "backend-challenge",
+  "version": "1.0.0",
+  "description": "challenge for alkemy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "Carlos Enrique Juarez",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3",
+    "http": "0.0.1-security",
+    "nodemon": "^2.0.15",
+    "sequelize": "^6.18.0",
+    "sqlite3": "^5.0.2"
+  }
+}
