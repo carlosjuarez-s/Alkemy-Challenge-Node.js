@@ -2,6 +2,7 @@ const { DataTypes}  = require('sequelize')
 const sequelize = require('../index')
 
 const Movie = sequelize.define('Movie', {
+    id: {type: DataTypes.INTEGER, primaryKey: true},
     img: DataTypes.STRING,
     title: DataTypes.STRING,
     date_creation: DataTypes.DATE,

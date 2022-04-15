@@ -1,3 +1,6 @@
+const Movie = require('../models/movieModel')
+
+
 const characterController = Character =>{
 
     const getCharacters = async(req, res) => {
@@ -58,6 +61,7 @@ const characterController = Character =>{
             },
             include: Movie
         })
+
 
         res.json(character)
     }

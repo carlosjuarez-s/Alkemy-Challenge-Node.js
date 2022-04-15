@@ -1,7 +1,8 @@
-const { DataTypes } = require('sequelize/types')
+const { DataTypes } = require('sequelize')
 const sequelize = require('../index')
 const Character = require('./characterModel')
 const Movie = require('./movieModel')
+
 
 const CharacterMovie = sequelize.define('CharacterMovie', {
     CharacterId: {
@@ -23,7 +24,12 @@ const CharacterMovie = sequelize.define('CharacterMovie', {
     timestamps: false
 })
 
+function associationModels() {
+    Movie.belongsToMany(Character, {through: CharacterMovie})
+    Character.belongsToMany(Movie, {through: CharacterMovie})
+}
+
 Movie.belongsToMany(Character, {through: CharacterMovie})
 Character.belongsToMany(Movie, {through: CharacterMovie})
 
-module.exports = CharacterMovie
+module.exports = {CharacterMovie, associationModels}
