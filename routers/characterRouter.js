@@ -14,7 +14,7 @@ const router = Character => {
         .post(postCharacter)
     
     characterRouter
-        .route('/characters/:characterId')
+        .route('/character/:characterId')
         .delete(deleteCharacter)
         .put(putCharacter)
         .get(getCharacterDetails)

@@ -4,9 +4,26 @@ const Movie = require('../models/movieModel')
 const characterController = Character =>{
 
     const getCharacters = async(req, res) => {
-        const response = await Character.findAll({
-            attributes: ['img', 'name']
-        })
+        const { query } = req
+        let response
+        
+        if(Object.keys(query).length > 0) {
+            if(query.age) response = await Character.findOne({where: {age: query.age}})
+            if(query.name) response = await Character.findAll({where: {name: query.name}})
+            if(query.movies) response = await Character.findAll({
+                include: [{
+                    model: Movie,
+                    where: {
+                        id: query.movies
+                    }
+                }]
+            })
+        } else {
+            response = await Character.findAll({
+                attributes: ['img', 'name']
+            })
+        }
+        
 
         res.json(response)
     }

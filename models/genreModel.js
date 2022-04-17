@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize/types')
+const { DataTypes } = require('sequelize')
 const sequelize = require('../index')
 
 const Genre = sequelize.define('Genre', {

@@ -10,6 +10,7 @@
   "author": "Carlos Enrique Juarez",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.6.2",
     "body-parser": "^1.20.0",
     "express": "^4.17.3",
     "express-jwt": "^6.1.1",
