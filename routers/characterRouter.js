@@ -1,5 +1,7 @@
 const characterController = require('../controllers/characterController')
 const express = require('express');
+const characterValidation = require('../validations/characterValidation')
+const validator = require('express-joi-validation').createValidator();
 
 
 const router = Character => {
@@ -11,12 +13,12 @@ const router = Character => {
     characterRouter
         .route('/characters')
         .get(getCharacters)
-        .post(postCharacter)
+        .post(validator.body(characterValidation), postCharacter)
     
     characterRouter
         .route('/character/:characterId')
         .delete(deleteCharacter)
-        .put(putCharacter)
+        .put(validator.body(characterValidation), putCharacter)
         .get(getCharacterDetails)
 
 

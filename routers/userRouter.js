@@ -1,5 +1,7 @@
 const userController = require('../controllers/userController')
 const express = require('express')
+const userValidation = require('../validations/userValidation')
+const validator = require('express-joi-validation').createValidator();
 
 const routes = User => {
     const userRouter = express.Router()
@@ -9,7 +11,7 @@ const routes = User => {
 
     userRouter
         .route('/auth/register')
-        .post(postUser)
+        .post(validator.body(userValidation), postUser)
 
     userRouter
         .route('/auth/login')

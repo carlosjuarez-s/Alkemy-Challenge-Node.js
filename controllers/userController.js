@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const sgMail = require('@sendgrid/mail')
+const key = require('../key')
 
 const userController = User => {
     const postUser = async(req, res) => {
@@ -8,10 +9,10 @@ const userController = User => {
 
         await user.save()
         
-        sgMail.setApiKey('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')
+        sgMail.setApiKey(key())
         const msg = {
-          to: body.email, // Change to your recipient
-          from: 'carloe2000@gmail.com', // Change to your verified sender
+          to: body.email, 
+          from: 'carloe2000@gmail.com', 
           subject: 'Welcome to Disney!',
           text: 'Welcome',
           html: '<strong>You are registered!</strong>',
@@ -25,7 +26,7 @@ const userController = User => {
             console.error(error)
           })
         
-        res.json(user)
+        res.json("User registered")
     }
 
     const postLogin = async(req, res) => {
@@ -37,10 +38,12 @@ const userController = User => {
             }
         })
 
+        if(!user) res.status(404).send("Invalid Credentials")
+
         if(user.password === body.password) {
             res.json({message: "Login!", token: generatedToken(user)})
         } else {
-            res.status(200).send("Invalid Credentials")
+            res.status(404).send("Invalid Credentials")
         }
     }
 

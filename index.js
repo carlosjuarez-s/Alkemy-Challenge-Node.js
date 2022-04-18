@@ -11,37 +11,16 @@ const sequelize = new Sequelize('alkemy', 'root', '', {
         timestamps: false
     }
 })
-
 module.exports = sequelize
+
 
 sequelize.authenticate()
     .then(() => {
-        console.log("Todo ok")
+        console.log("All ok")
     })
     .catch(error => {
         console.log("Error: ", error)
     })
-
-    
-    /*const sgMail = require('@sendgrid/mail')
-    sgMail.setApiKey('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')
-    console.log(process.env.SENDGRID_API_KEY)
-    const msg = {
-      to: 'carloe2000@gmail.com', // Change to your recipient
-      from: 'carloe2000@gmail.com', // Change to your verified sender
-      subject: 'Sending with SendGrid is Fun',
-      text: 'and easy to do anywhere, even with Node.js',
-      html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-    }
-    sgMail
-      .send(msg)
-      .then(() => {
-        console.log('Email sent')
-      })
-      .catch((error) => {
-        console.error(error)
-      })*/
-
 
 //Modelos
 const Character = require('./models/characterModel')
@@ -65,16 +44,23 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-/*app.all('/api/*', jwt({
+app.all('/*', jwt({
     secret: 'alkemy',
     algorithms: ['HS256'],
 }).unless({
-    path: ['/api/auth/login', '/api/auth/register']
-}))*/
+    path: ['/auth/login', '/auth/register']
+}))
+
+app.use(function (err, req, res, next) {
+    if (err.name === 'UnauthorizedError') {
+      res.status(401).send('invalid token...');
+    }
+  });
 
 app.listen(8080, () => {
     console.log("Listen Server 8080")
 })
-app.use('/api', characterRouter, movieRouter, userRouter)
+
+app.use('/', characterRouter, movieRouter, userRouter)
 
 

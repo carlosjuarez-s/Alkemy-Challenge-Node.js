@@ -1,5 +1,7 @@
 const express = require('express')
 const movieController = require('../controllers/movieController')
+const movieValidation = require('../validations/movieValidation')
+const validator = require('express-joi-validation').createValidator();
 
 const routes = Movie => {
     const movieRouter = express.Router()
@@ -10,13 +12,13 @@ const routes = Movie => {
     movieRouter
         .route('/movies')
         .get(getMovies)
-        .post(postMovie)
+        .post(validator.body(movieValidation), postMovie)
 
     movieRouter
         .route('/movie/:movieId')
         .get(getMovieDetails)
         .delete(deleteMovie)
-        .put(putMovie)
+        .put(validator.body(movieValidation), putMovie)
 
     return movieRouter 
 }

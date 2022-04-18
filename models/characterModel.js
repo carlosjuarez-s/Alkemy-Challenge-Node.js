@@ -13,6 +13,4 @@ const Character = sequelize.define('Character', {
     timestamps: false
 })
 
-console.log(Character === sequelize.models.Character)
-
 module.exports = Character;

@@ -24,7 +24,6 @@ const characterController = Character =>{
             })
         }
         
-
         res.json(response)
     }
 
@@ -39,13 +38,18 @@ const characterController = Character =>{
 
     const deleteCharacter = async(req, res) => {
         const { params } = req
-        await Character.destroy({
-            where: {
-                id: params.characterId
-            }
-        })
 
-        res.json("Deleted")
+        console.log("a")
+        try {
+            await Character.destroy({
+                where: {
+                    id: params.characterId
+                }
+            })
+            res.json("Deleted")
+        } catch(err) {
+            console.log(err)
+        }        
     }
 
     const putCharacter = async(req, res) => {
